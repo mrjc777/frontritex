@@ -1,0 +1,45 @@
+<hr>
+<div class="col-md-12">
+    <form #f1="ngForm" (ngSubmit)="registrarIncorporacionInstalacion(f1)" name="frmInstalacion" id="frmInstalacion">
+        <div class="row bg-content">
+            <div class="col-md-5">
+                <label for="direccion_p1">Dirección</label>
+                <input type="text"
+                       name="direccion_p1"
+                       id="direccion_p1"
+                       class="form-control"
+                       ngModel
+                       #direccion_p1="ngModel">
+            </div>
+            <div class="col-md-3">
+                <label for="tipo_p1">Tipo</label>
+                <select name="tipo_p1"
+                        id="tipo_p1"
+                        class="form-control"
+                        ngModel
+                        #tipop1="ngModel">
+                    <option *ngFor="let item of tipoInstalacion" value="{{item.tipo_pk}}">{{item.tipo_pk}}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-success btn-fill" style="margin-top: 1.8em;"><i class="fa fa-plus"></i> GUARDAR</button>
+                <button type="button" class="btn btn-danger btn-fill" style="margin-top: 1.8em; margin-left: 0.5em;" (click)="eliminarInstalacion()"><i class="fa fa-trash"></i> ELIMINAR</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="col-md-12" style="margin-top:1.5em; margin-bottom:1.5em;">
+    <jqxGrid
+        [source]="dataAdapterInstalacion"
+        [height]="'450px'"
+        [width]="'100%'"
+        [pageable]="true"
+        [altrows]="true"
+        [sortable]="true"
+        [columns]="columns"
+        [localization]="localization"
+        (onRowclick)="seleccionInstalacionEliminar($event);"
+        #gridinstalacion>
+    </jqxGrid>
+</div>
+<br style="margin-top:1.5em; margin-bottom:1.5em;">

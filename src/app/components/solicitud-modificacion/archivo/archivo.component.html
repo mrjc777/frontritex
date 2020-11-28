@@ -1,0 +1,55 @@
+<hr>
+<div class="col-md-12">
+    <div class="bg-content">
+    <form #archivo1="ngForm" (ngSubmit)="registrarModificacionArchivos1(archivo1)" name="frmArchivo1" id="frmArchivo1">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="archivo_p41">Informe Pericial (PDF)</label>
+                <input type="file"
+                        name="archivo_p41"
+                        id="archivo_p41"
+                        class="form-control"
+                        ngModel
+                        #archivo_p41="ngModel">
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-success btn-fill" style="margin-top: 1.8em;"><i class="fa fa-plus"></i> AGREGAR</button>
+            </div>
+        </div>
+    </form>
+    <form #archivo2="ngForm" (ngSubmit)="registrarModificacionArchivos2(archivo2)" name="frmArchivo2" id="frmArchivo2">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="archivo_p42">Otros (PDF)</label>
+                <input type="file"
+                        name="archivo_p42"
+                        id="archivo_p42"
+                        class="form-control"
+                        ngModel
+                        #archivo_p42="ngModel">
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-success btn-fill" style="margin-top: 1.8em;"><i class="fa fa-plus"></i> AGREGAR</button>
+            </div>
+        </div>
+    </form>
+    <button type="button" class="btn btn-danger btn-fill" style="margin-top: 1.8em; margin-left: 0.5em;" (click)="eliminarArchivo()"><i class="fa fa-trash"></i> ELIMINAR</button>
+    </div>
+    <br>
+</div>
+<div class="col-md-12" style="margin-top:1.5em; margin-bottom:1.5em;">
+    <jqxGrid
+        [source]="dataAdapterArchivo"
+        [height]="'450px'"
+        [width]="'100%'"
+        [groupable]="true"
+        [pageable]="true"
+        [altrows]="true"
+        [sortable]="true"
+        [columns]="columns"
+        [localization]="localization"
+        (onRowclick)="seleccionArchivoEliminar($event);"
+        #gridArchivo>
+    </jqxGrid>
+</div>
+<br style="margin-top:1.5em; margin-bottom:1.5em;">

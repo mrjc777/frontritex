@@ -1,0 +1,358 @@
+<div class="wrapper wrapper-full-page">
+    <div class="full-page register-page" data-color="ritex" >
+    <!--<div class="full-page register-page" data-color="black" data-image="../../../assets/img/register_back.jpg">-->
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="header-text">
+                            <h2>RITEX</h2>
+                            <h4>Formulario de Pre Registro de datos de la empresa</h4>
+                            <hr style="border:2px solid #000000;"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <div style="border: 1px solid #242323; border-left: 4px solid #807d7d; border-radius: 5px; padding-top:10px; background-color: #beb8b8;">
+                            <form #f="ngForm" (ngSubmit)="saveBusiness(f)">
+                                <div class="card card-plain">
+                                    <div class="content">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group" [ngClass]="{'has-error': razon_social.invalid && razon_social.touched}" >
+                                                    <span class="lbl-title">Razon Social</span>
+                                                    <input type="text"
+                                                        placeholder="razon social"
+                                                        class="form-control"
+                                                        name="razon_social"
+                                                        required
+                                                        minlength="4"
+                                                        maxlength="100"
+                                                        ngModel
+                                                        #razon_social="ngModel">
+                                                    <div *ngIf="razon_social.dirty && razon_social.invalid" >
+                                                        <div *ngIf="razon_social?.errors.required">
+                                                            <small class="form-text text-danger">Este campo es requerido.</small>
+                                                        </div>
+                                                        <div *ngIf="razon_social?.errors.minlength">
+                                                            <small class="form-text text-danger">Debe contar como mínimo 4 caracteres de longitud.</small>
+                                                        </div>
+                                                        <div *ngIf="razon_social?.errors.maxlength">
+                                                            <small class="form-text text-danger">Debe contar como máximo 100 caracteres de longitud.</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group" >
+                                                            <span class="lbl-title">Departamento</span>
+                                                            <ng-multiselect-dropdown
+                                                                [placeholder]="'Seleccione un departamento'"
+                                                                [data]="departamentoData"
+                                                                [(ngModel)]="departamento"
+                                                                [settings]="SelectDepartamentoSettings"
+                                                                name="departamento" required>
+                                                            </ng-multiselect-dropdown>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group" [ngClass]="{'has-error': ciudad.invalid && ciudad.touched}">
+                                                            <span class="lbl-title">Ciudad</span>
+                                                            <input type="text"
+                                                                placeholder="ciudad"
+                                                                class="form-control"
+                                                                name="ciudad"
+                                                                required
+                                                                minlength="5"
+                                                                maxlength="50"
+                                                                ngModel
+                                                                #ciudad="ngModel">
+                                                            <div *ngIf="ciudad.dirty && ciudad.invalid" >
+                                                                <div *ngIf="ciudad?.errors.required">
+                                                                    <small class="form-text text-danger">Este campo es requerido.</small>
+                                                                </div>
+                                                                <div *ngIf="ciudad?.errors.minlength">
+                                                                    <small class="form-text text-danger">Debe contar como mínimo 5 caracteres de longitud.</small>
+                                                                </div>
+                                                                <div *ngIf="ciudad?.errors.maxlength">
+                                                                    <small class="form-text text-danger">Debe contar como máximo 50 caracteres de longitud.</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group" [ngClass]="{'has-error':direccion.invalid && direccion.touched}">
+                                                    <span class="lbl-title">Dirección</span>
+                                                    <input type="text"
+                                                        placeholder="dirección"
+                                                        class="form-control"
+                                                        name="direccion"
+                                                        required
+                                                        minlength="5"
+                                                        maxlength="50"
+                                                        ngModel
+                                                        #direccion="ngModel">
+                                                    <div *ngIf="direccion.dirty && direccion.invalid" >
+                                                        <div *ngIf="direccion?.errors.required">
+                                                            <small class="form-text text-danger">Este campo es requerido.</small>
+                                                        </div>
+                                                        <div *ngIf="direccion?.errors.minlength">
+                                                            <small class="form-text text-danger">Debe contar como mínimo 5 caracteres de longitud.</small>
+                                                        </div>
+                                                        <div *ngIf="direccion?.errors.maxlength">
+                                                            <small class="form-text text-danger">Debe contar como máximo 50 caracteres de longitud.</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group" [ngClass]="{'has-error': correo_electronico.invalid && correo_electronico.touched}">
+                                                            <span class="lbl-title">Correo Electrónico</span>
+                                                            <input type="correo_electronico"
+                                                                placeholder="correo electrónico"
+                                                                class="form-control"
+                                                                name="correo_electronico"
+                                                                required
+                                                                correo_electronico
+                                                                ngModel
+                                                                #correo_electronico="ngModel">
+                                                            <div *ngIf="correo_electronico.dirty && correo_electronico.invalid" >
+                                                                <div *ngIf="correo_electronico?.errors.required">
+                                                                    <small class="form-text text-danger">Este campo es requerido.</small>
+                                                                </div>
+                                                                <div *ngIf="correo_electronico?.errors.correo_electronico">
+                                                                    <small class="form-text text-danger">Ingrese un correo electronico válido.</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group" [ngClass]="{'has-error': telefono.invalid && telefono.touched}">
+                                                            <span class="lbl-title">Nro. Telefónico</span>
+                                                            <input type="text"
+                                                                placeholder="teléfono"
+                                                                class="form-control"
+                                                                name="telefono"
+                                                                required
+                                                                pattern="^[0-9]+"
+                                                                ngModel
+                                                                #telefono="ngModel">
+                                                            <div *ngIf="telefono.dirty && telefono.invalid" >
+                                                                <div *ngIf="telefono?.errors.required">
+                                                                    <small class="form-text text-danger">Este campo es requerido.</small>
+                                                                </div>
+                                                                <div *ngIf="telefono?.errors.pattern">
+                                                                    <small class="form-text text-danger">Solo son válidos números</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group" >
+                                                    <span class="lbl-title">Actividad</span>
+                                                    <ng-multiselect-dropdown
+                                                        [placeholder]="'Seleccione una actividad'"
+                                                        [data]="actividadData"
+                                                        [(ngModel)]="actividad"
+                                                        [settings]="SelectActividadSettings"
+                                                        name="actividad" required>
+                                                    </ng-multiselect-dropdown>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group" [ngClass]="{'has-error': representante_legal.invalid && representante_legal.touched}">
+                                                    <span class="lbl-title">Nombre Representante Legal</span>
+                                                    <input type="text"
+                                                        placeholder="representante legal"
+                                                        class="form-control"
+                                                        name="representante_legal"
+                                                        required
+                                                        minlength="10"
+                                                        maxlength="50"
+                                                        ngModel
+                                                        #representante_legal="ngModel">
+                                                    <div *ngIf="representante_legal.dirty && representante_legal.invalid" >
+                                                        <div *ngIf="representante_legal?.errors.required">
+                                                            <small class="form-text text-danger">Este campo es requerido.</small>
+                                                        </div>
+                                                        <div *ngIf="representante_legal?.errors.minlength">
+                                                            <small class="form-text text-danger">Debe contar como mínimo 10 caracteres de longitud.</small>
+                                                        </div>
+                                                        <div *ngIf="representante_legal?.errors.maxlength">
+                                                            <small class="form-text text-danger">Debe contar como máximo 50 caracteres de longitud.</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group" [ngClass]="{'has-error':carnet_identidad.invalid && carnet_identidad.touched}">
+                                                            <span class="lbl-title">Nro. de CI</span>
+                                                            <input type="text"
+                                                                placeholder="ci"
+                                                                class="form-control"
+                                                                name="carnet_identidad"
+                                                                required
+                                                                pattern=""
+                                                                ngModel
+                                                                #carnet_identidad="ngModel">
+                                                            <div *ngIf="carnet_identidad.dirty && carnet_identidad.invalid">
+                                                                <div *ngIf="carnet_identidad?.errors.required">
+                                                                    <small class="form-text text-danger">Este campo es requerido.</small>
+                                                                </div>
+                                                                <div *ngIf="carnet_identidad?.errors.pattern">
+                                                                    <small class="form-text text-danger">Solo con válidos números y letras.</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group" >
+                                                            <span class="lbl-title">Expedido en</span>
+                                                            <ng-multiselect-dropdown
+                                                                [placeholder]="'Seleccione expedido'"
+                                                                [data]="departamentoData"
+                                                                [(ngModel)]="expedido"
+                                                                [settings]="SelectDepartamentoSettings"
+                                                                name="expedido" required>
+                                                            </ng-multiselect-dropdown>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group" [ngClass]="{'has-error':numero_ruex.invalid && numero_ruex.touched}">
+                                                    <span class="lbl-title">Nro. de RUEX</span>
+                                                    <input type="text"
+                                                        placeholder="ruex"
+                                                        class="form-control"
+                                                        name="numero_ruex"
+                                                        required
+                                                        pattern="^[0-9]+"
+                                                        ngModel
+                                                        #numero_ruex="ngModel">
+                                                    <div *ngIf="numero_ruex.dirty && numero_ruex.invalid" >
+                                                        <div *ngIf="numero_ruex?.errors.required">
+                                                            <small class="form-text text-danger">Este campo es requerido.</small>
+                                                        </div>
+                                                        <div *ngIf="numero_ruex?.errors.pattern">
+                                                            <small class="form-text text-danger">Solo son válidos números.</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group" [ngClass]="{'has-error': numero_matricula.invalid && numero_matricula.touched}">
+                                                    <span class="lbl-title">Nro. de Matrícula</span>
+                                                    <input type="text"
+                                                        placeholder="matricula"
+                                                        class="form-control"
+                                                        name="numero_matricula"
+                                                        required
+                                                        pattern="^[0-9]+"
+                                                        ngModel
+                                                        #numero_matricula="ngModel">
+                                                    <div *ngIf="numero_matricula.dirty && numero_matricula.invalid" >
+                                                        <div *ngIf="numero_matricula?.errors.required">
+                                                            <small class="form-text text-danger">Este campo es requerido.</small>
+                                                        </div>
+                                                        <div *ngIf="numero_matricula?.errors.pattern">
+                                                            <small class="form-text text-danger">Solo son válidos números.</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group" [ngClass]="{'has-error': numero_nit.invalid && numero_nit.touched}">
+                                                    <span class="lbl-title">Nro. de NIT</span>
+                                                    <input type="text"
+                                                        placeholder="nit"
+                                                        class="form-control"
+                                                        name="numero_nit"
+                                                        required
+                                                        pattern="^[0-9]+"
+                                                        ngModel
+                                                        #numero_nit="ngModel">
+                                                    <div *ngIf="numero_nit.dirty && numero_nit.invalid">
+                                                        <div *ngIf="numero_nit?.errors.required">
+                                                            <small class="form-text text-danger">Este campo es requerido.</small>
+                                                        </div>
+                                                        <div *ngIf="numero_nit?.errors.pattern">
+                                                            <small class="form-text text-danger">Solo son válidos números.</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="footer text-center">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <button type="submit"
+                                                        class="btn btn-block btn-warning btn-fill"
+                                                        [disabled]="!f.form.valid">
+                                                    <i class="fa fa-plus"></i> REGISTRAR
+                                                </button>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <a [routerLink]="['/pages/login']"
+                                                    class="btn btn-block btn-danger btn-fill">
+                                                    <i class="fa fa-refresh"></i> CANCELAR
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer footer-transparent">
+            <div class="container">
+                <p class="copyright text-center">
+                    &copy; {{year | date: 'yyyy'}} <a href="https://ritex.produccion.gob.bo" target="_blank">Desarrollo Productivo</a>, VCI
+                </p>
+            </div>
+        </footer>
+
+    </div>
+
+</div>

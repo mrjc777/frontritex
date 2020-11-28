@@ -1,0 +1,220 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card ">
+                    <div class="container-fluid">
+                        <h3>Usuario Aduana</h3>
+                        <div class="col-md-6">
+                            Registrar datos para el usuario del sistema informático RITEX de Aduana Nacional
+                        </div>
+                        <br>
+                        <hr><br>
+                        <form #f="ngForm" (ngSubmit)="saveUsuarioAduana(f)">
+                            <div class="bg-content">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group" >
+                                            <span>Tipo de Documento</span>
+                                            <ng-multiselect-dropdown
+                                                [placeholder]="'Seleccione Tipo'"
+                                                [data]="tipoDocumentoData"
+                                                [(ngModel)]="tipoDocumento"
+                                                [settings]="SelectTipoDocumentoSettings"
+                                                name="tipoDocumento" required>
+                                            </ng-multiselect-dropdown>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group" [ngClass]="{'has-error': nro_documento.invalid && nro_documento.touched}">
+                                            <span>Número de Documento</span>
+                                            <input type="text"
+                                                placeholder="Número de documento"
+                                                class="form-control"
+                                                name="nro_documento"
+                                                required
+                                                pattern="^[0-9]+"
+                                                ngModel
+                                                #nro_documento="ngModel">
+                                            <div *ngIf="nro_documento.dirty && nro_documento.invalid">
+                                                <div *ngIf="nro_documento?.errors.required">
+                                                    <small class="form-text text-danger">Este campo es requerido.</small>
+                                                </div>
+                                                <div *ngIf="nro_documento?.errors.pattern">
+                                                    <small class="form-text text-danger">Solo son válidos números.</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <span>Complemento</span>
+                                            <input type="text"
+                                                placeholder="Complemento"
+                                                class="form-control"
+                                                name="complemento"
+                                                ngModel
+                                                #complemento="ngModel">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group" >
+                                            <span>Expedido</span>
+                                            <ng-multiselect-dropdown
+                                                [placeholder]="'Expedido'"
+                                                [data]="expedidoUsuarioData"
+                                                [(ngModel)]="expedidoUsuario"
+                                                [settings]="SelectExpedidoSettings"
+                                                name="expedidoUsuario" required>
+                                            </ng-multiselect-dropdown>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group" [ngClass]="{'has-error': fecha_nacimiento.invalid && fecha_nacimiento.touched}">
+                                            <span>Fecha de Nacimiento</span>
+                                            <input type="date"
+                                                placeholder="00/00/0000"
+                                                class="form-control"
+                                                name="fecha_nacimiento"
+                                                required
+                                                ngModel
+                                                #fecha_nacimiento="ngModel">
+                                            <div *ngIf="fecha_nacimiento.dirty && fecha_nacimiento.invalid">
+                                                <div *ngIf="fecha_nacimiento?.errors.required">
+                                                    <small class="form-text text-danger">Este campo es requerido.</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group" [ngClass]="{'has-error': nombres.invalid && nombres.touched}">
+                                            <span>Nombre(s)</span>
+                                            <input type="text"
+                                                placeholder="Nombre"
+                                                class="form-control"
+                                                name="nombres"
+                                                required
+                                                ngModel
+                                                #nombres="ngModel">
+                                            <div *ngIf="nombres.dirty && nombres.invalid">
+                                                <div *ngIf="nombres?.errors.required">
+                                                    <small class="form-text text-danger">Este campo es requerido.</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group" [ngClass]="{'has-error': ap_paterno.invalid && ap_paterno.touched}">
+                                            <span>Apellido Paterno</span>
+                                            <input type="text"
+                                                placeholder="Apellido paterno"
+                                                class="form-control"
+                                                name="ap_paterno"
+                                                required
+                                                ngModel
+                                                #ap_paterno="ngModel">
+                                            <div *ngIf="ap_paterno.dirty && ap_paterno.invalid">
+                                                <div *ngIf="ap_paterno?.errors.required">
+                                                    <small class="form-text text-danger">Este campo es requerido.</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group" [ngClass]="{'has-error': ap_materno.invalid && ap_materno.touched}">
+                                            <span>Apellido Materno</span>
+                                            <input type="text"
+                                                placeholder="Apellido materno"
+                                                class="form-control"
+                                                name="ap_materno"
+                                                required
+                                                ngModel
+                                                #ap_materno="ngModel">
+                                            <div *ngIf="ap_materno.dirty && ap_materno.invalid">
+                                                <div *ngIf="ap_materno?.errors.required">
+                                                    <small class="form-text text-danger">Este campo es requerido.</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group" [ngClass]="{'has-error': telefono.invalid && telefono.touched}">
+                                            <span>Teléfono</span>
+                                            <input type="text"
+                                                placeholder="Teléfono"
+                                                class="form-control"
+                                                name="telefono"
+                                                required
+                                                ngModel
+                                                #telefono="ngModel">
+                                            <div *ngIf="telefono.dirty && telefono.invalid">
+                                                <div *ngIf="telefono?.errors.required">
+                                                    <small class="form-text text-danger">Este campo es requerido.</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group" [ngClass]="{'has-error': telefono_movil.invalid && telefono_movil.touched}">
+                                            <span>Teléfono Móvil</span>
+                                            <input type="text"
+                                                placeholder="Teléfono Móvil"
+                                                class="form-control"
+                                                name="telefono_movil"
+                                                required
+                                                ngModel
+                                                #telefono_movil="ngModel">
+                                            <div *ngIf="telefono_movil.dirty && telefono_movil.invalid">
+                                                <div *ngIf="telefono_movil?.errors.required">
+                                                    <small class="form-text text-danger">Este campo es requerido.</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group" [ngClass]="{'has-error': correo_electronico.invalid && correo_electronico.touched}">
+                                            <span>Correo Electrónico</span>
+                                            <input type="email"
+                                                placeholder="Correo electrónico"
+                                                class="form-control"
+                                                name="correo_electronico"
+                                                required
+                                                ngModel
+                                                #correo_electronico="ngModel">
+                                            <div *ngIf="correo_electronico.dirty && correo_electronico.invalid">
+                                                <div *ngIf="correo_electronico?.errors.required">
+                                                    <small class="form-text text-danger">Este campo es requerido.</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <button type="submit"
+                                                class="btn btn-block btn-success btn-fill"
+                                                [disabled]="!f.form.valid">
+                                            <i class="fa fa-plus"></i> REGISTRAR
+                                        </button>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="reset" class="btn btn-block btn-danger btn-fill">
+                                            <i class="fa fa-refresh"></i> CANCELAR
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

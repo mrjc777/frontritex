@@ -1,0 +1,44 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Cambiar contraseña del usuario</h4>
+                    </div>
+                    <div class="content">
+                        <form #f="ngForm" (ngSubmit)="cambiarContrasena(f)">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Contraseña Antigua</label>
+                                        <input type="password" class="form-control" required [(ngModel)]="f.opw" name="opw" id="opw">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Nueva Contraseña</label>
+                                        <input type="password" class="form-control" required [(ngModel)]="f.npw" name="npw" id="npw" minlength="6">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Repetir Contraseña</label>
+                                        <input type="password" class="form-control" required [(ngModel)]="f.rnpw" name="rnpw" id="rnpw" minlength="6">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" [disabled]="!f.form.valid" class="btn btn-sm btn-success btn-fill">Actualizar Contraseña</button>
+                            <button type="reset" class="btn btn-sm btn-danger btn-fill">Cancelar</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

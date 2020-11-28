@@ -1,0 +1,182 @@
+<hr>
+<div class="col-md-12">
+    <div class="bg-content">
+    <form #f3="ngForm" (ngSubmit)="registrarModificacionProducto(f3)" name="frmProducto" id="frmProducto">
+        <div class="row">
+            <div class="col-md-3">
+                <label for="codigo_p3">Código</label>
+                <input type="text"
+                        name="codigo_p3"
+                        id="codigo_p3"
+                        class="form-control"
+                        ngModel
+                        #codigo_p3="ngModel">
+            </div>
+            <div class="col-md-4">
+                <label for="partida_arancelaria_p3">Partida Arancelaria</label>
+                <section class="filter-wrapper">
+                    <div class="keyword-wrapper">
+                        <input [formControl]="queryField" type="text" id="keyword" placeholder="0000.00.00.000" autofocus class="form-control"/>
+                    </div>
+                   <!-- <ul class="filter-select"> -->
+                    <ul >
+                        <li *ngFor="let result of results" class="filter-select-list">
+                            <p class="artist-name">{{result.partida_arancelaria}}</p>
+                        
+                   </ul>
+                </section>
+            </div>
+            <div class="col-md-3">
+                <label for="unidad_medida_p3">Unidad de Medida</label>
+                <select name="unidad_medida_p3"
+                        id="unidad_medida_p3"
+                        class="form-control"
+                        ngModel
+                        #unidad_medida_p3="ngModel">
+                    <option *ngFor="let item of unidadMedida_p3" value="{{item.id}}">{{item.unidad_de_medida}} - {{item.descripcion}}</option>
+                </select>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-md-9">
+                <label for="descripcion_p3">Descripcion</label>
+                <input type="text"
+                        name="descripcion_p3"
+                        id="descripcion_p3"
+                        class="form-control"
+                        ngModel
+                        #descripcion_p3="ngModel">
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-success btn-fill" style="margin-top: 1.8em;"><i class="fa fa-plus"></i> AGREGAR</button>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button" class="btn-sm btn btn-primary btn-fill" style="margin-left: 0.5em;" (click)="showFormularioAgregarInsumos()"><i class="fa fa-plus"></i> ADICIONAR INSUMO</button>
+                <button type="button" class="btn-sm btn btn-danger btn-fill" style="margin-left: 0.5em;" (click)="eliminarProducto()"><i class="fa fa-trash"></i> ELIMINAR</button>
+            </div>
+        </div>
+    </form>
+    </div>
+</div>
+<div class="col-md-12" style="margin-top:1.5em; margin-bottom:1.5em;">
+    <jqxGrid
+        [source]="dataAdapterProducto"
+        [height]="'450px'"
+        [width]="'100%'"
+        [pageable]="true"
+        [altrows]="true"
+        [sortable]="true"
+        [columns]="columns"
+        [localization]="localization"
+        (onRowclick)="seleccionProductoEliminar($event);"
+        #gridproducto>
+    </jqxGrid>
+</div>
+<br style="margin-top:1.5em; margin-bottom:1.5em;">
+
+
+<!-- !!!: MODAL ADICIONAR INSUMO AL PRODUCTO -->
+<div class="modal fade" id="modalAdicionarProducto">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa fa-plus"></i> ADICIONAR INSUMO</h5>
+                <button type="button" class="close" aria-label="Close" data-dismiss="modal" style="margin-top: -1.2em;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>PRODUCTO SELECCIONADO - {{ dataselect.codigo_producto }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Partida Arancelaria</label>
+                        <br><b style="color: #19AA02;">{{ dataselect.partidas_arancelarias }}</b>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Descripcion del Producto</label>
+                        <br><b style="color: #19AA02;">{{ dataselect.descripcion }}</b>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Unidad de Medida</label>
+                        <br><b style="color: #19AA02;">{{ dataselect.unidad_de_medida }}</b>
+                    </div>
+                </div><hr>
+                <form #f3_p="ngForm" (onSubmit)="registrarModificacionProductoInsumos(f3_p)" name="frmProductoInsumo" id="frmProductoInsumo">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="insumo_p3">Insumos</label>
+                            <select name="insumo_p3"
+                                    id="insumo_p3"
+                                    class="form-control"
+                                    ngModel
+                                    #insumo_p3="ngModel"
+                                    (change)='changeOptionsInsumoSelect(insumo_p3.value)'>
+                                <option *ngFor="let item of insumos" value="{{ item.id }}">{{item.codigo_insumo}} {{item.descripcion}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="partida_p3"><b>Partida Arancelaria</b></label><br>
+                            <i>{{ label_partida_arancelaria }}</i>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="descripcion_p3"><b>Descripción</b></label><br>
+                            <i>{{ label_descripcion }}</i>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="unidad_p3"><b>UM</b></label><br>
+                            <i>{{ label_unidad_medida }}</i>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-3">
+                            <label for="coeficiente_p3">Coeficiente de Consumo</label>
+                            <input type="text"
+                                    name="coeficiente_p3"
+                                    id="coeficiente_p3"
+                                    class="form-control"
+                                    ngModel
+                                    #coeficiente_p3="ngModel">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="desperdicio_p3">% Desperdicio</label>
+                            <input type="text"
+                                    name="desperdicio_p3"
+                                    id="desperdicio_p3"
+                                    class="form-control"
+                                    ngModel
+                                    #desperdicio_p3="ngModel">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="sobrante_p3">% Sobrante</label>
+                            <input type="text"
+                                    name="sobrante_p3"
+                                    id="sobrante_p3"
+                                    class="form-control"
+                                    ngModel
+                                    #sobrante_p3="ngModel">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <button type="submit" class="btn btn-sm btn-success btn-fill" (click)="registrarModificacionProductoInsumos(f3_p)"><i class="fa fa-plus"></i> AGREGAR</button>
+                            <button type="reset" class="btn btn-sm btn-danger btn-fill" style="margin-left: 1em;"><i class="fa fa-refresh"></i> CANCELAR</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-warning btn-fill" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+

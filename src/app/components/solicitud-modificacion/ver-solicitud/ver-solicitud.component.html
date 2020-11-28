@@ -1,0 +1,38 @@
+<hr>
+<div class="col-md-12">
+    <p>Visualización de Solicitud de Incorporación y Envío de Solicitud</p>
+    <p><b><i>Revise su Información  através de la pre-visualización</i></b></p>
+    <p>
+        1. Presione el siguiente botón para previsualizar sin CODIGO
+        <button class="btn btn-sm btn-fill btn-primary" (click)="generatePdfPrevisualizacion()"><i class="fa fa-file-pdf-o"></i> PREVISUALIZAR DATOS</button>
+        <br><br>
+        2. Presione el siguiente botón para visualizar la Solicitud con CODIGO
+        <button class="btn btn-sm btn-fill btn-danger" (click)="generateCodigoSolicitud()" style="margin-left:1em;"><i class="fa fa-book"></i> GENERAR CODIGO DE SOLICTUD</button>
+    </p>
+    <code>Nota: Una vez generado el CODIGO DE SOLICITUD, debe de imprimir la Solicitud y firmar el fisico para el cargado del mismo en el punto 3</code>
+    <br><br>
+    <form #f="ngForm" (ngSubmit)="regsitrarSolicitudIncorporacion(f)" name="frmconsolidado" id="frmconsolidado">
+        <p>3. Cargar La Solicitud con el Codigo Generado</p>
+        <div class="row">
+            <div class="col-md-6">
+                <input
+                    class="form-control"
+                    type="file"
+                    name="solIncorporacionConsolidado"
+                    id="solIncorporacionConsolidado"
+                    ngModel
+                    #solIncorporacionConsolidado="ngModel"
+                    >
+            </div>
+            <div class="col-md-6 pull-left">
+                <button type="submit" class="btn btn-sm btn-danger btn-fill"><i class="fa fa-file-pdf-o"></i> CARGAR ARCHIVO Y CONSOLIDAR SOLICITUD</button>
+            </div>
+        </div>
+    </form>
+    <br style="margin-top:1.5em; margin-bottom:2em;">
+</div>
+
+
+
+
+

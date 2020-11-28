@@ -1,0 +1,224 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card ">
+                    <div class="header">
+                        <h4 class="title">Solicitudes de Incorporación RITEX</h4>
+                        <p class="category">Listado de todas las empresas que enviaron sus solicitudes de incoroporación RITEX</p>
+                    </div>
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-md-12" style="margin-bottom: 0.5em;">
+                                <button (click)="eliminarSolicitudIncorporacion()" class="btn btn-sm btn-danger btn-fill pull-right" style="margin-left: 0.5em;"><i class="fa fa-trash"></i> ELIMINAR</button>
+                                <button (click)="observarSolicitudIncorporacion()" class="btn btn-sm btn-warning btn-fill pull-right" style="margin-left: 0.5em;"><i class="fa fa-eye"></i><b> OBSERVAR</b></button>
+                                <button (click)="aprobarSolicitudIncorporacion()" class="btn btn-sm btn-success btn-fill pull-right" style="margin-left: 0.5em;"><i class="fa fa-check"></i><b> APROBAR</b></button>
+                                <button (click)="detalleSolicitudIncorporacion()" class="btn btn-sm btn-primary btn-fill pull-right"><i class="fa fa-list"></i><b> DETALLE</b></button>
+                            </div>
+                            <div class="col-md-12">
+                                <jqxGrid
+                                    [source]="dataAdapter"
+                                    [height]="'450px'"
+                                    [width]="'100%'"
+                                    [pageable]="true"
+                                    [altrows]="true"
+                                    [sortable]="true"
+                                    [columns]="columns"
+                                    [localization]="localization"
+                                    (onRowclick)="seleccionSolicitudIncorporacion($event);"
+                                    #gridSolcitudesIncorporacion>
+                                </jqxGrid>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- !!!: MODAL DETALLE DE DATOS DE LA EMPRESA -->
+<div class="modal fade" id="modal-detallesolicitud">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fa fa-home"></i> DETALLE DE LA EMPRESA</h4>
+                <button type="button" class="close" aria-label="Close" data-dismiss="modal" style="margin-top: -1.2em;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover" width="100%">
+                    <tr>
+                        <td valign="top" width="30%">Nombre de la Empresa</td>
+                        <td valign="top" width="5%">:</td>
+                        <td valign="top" width="65%"><b>{{datosSolicitud.razon_social}}</b></td>
+                    </tr>
+                    <tr>
+                        <td valign="top">Representante Legal</td>
+                        <td valign="top">:</td>
+                        <td valign="top"><i class="fa fa-user"></i> <b>{{datosSolicitud.representante_legal}}</b></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-defafult btn-fill" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- !!!: MODAL PARA FORMULARIO OBSERVACIONES PARA LA SOLICITUD DE INCORPORACION -->
+<div class="modal fade" id="modal-observacion">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fa fa-eye"></i> OBSERVACIONES A LA SOLICITUD DE INCORPORACION</h4>
+                <button type="button" class="close" aria-label="Close" data-dismiss="modal" style="margin-top: -1.2em;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #obs="ngForm" (ngSubmit)="registrarObservacion(obs)">
+                    <div class="card card-plain">
+                        <div class="content">
+                            <h5>RAZON SOCIAL: {{datosSolicitud.razon_social}}</h5>
+                            <h5>CODIGO DE SOLICITUD: {{datosSolicitud.codigo}}</h5>
+
+                            <div class="form-group" [ngClass]="{'has-error': observacion.invalid && observacion.touched}">
+                                <span>Observaciones</span>
+                                <textarea
+                                    placeholder="Ingrese la observacion correspondiente"
+                                    class="form-control"
+                                    name="observacion"
+                                    required
+                                    minlength="5"
+                                    maxlength="500"
+                                    ngModel
+                                    #observacion="ngModel"
+                                    rows="10"
+                                    ></textarea>
+                                <div *ngIf="observacion.dirty && observacion.invalid" >
+                                    <div *ngIf="observacion?.errors.required">
+                                        <small class="form-text text-danger">Este campo es requerido.</small>
+                                    </div>
+                                    <div *ngIf="observacion?.errors.minlength">
+                                        <small class="form-text text-danger">Debe contar como mínimo 5 caracteres de longitud.</small>
+                                    </div>
+                                    <div *ngIf="observacion?.errors.maxlength">
+                                        <small class="form-text text-danger">Debe contar como máximo 500 caracteres de longitud.</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-sm btn-warning btn-fill pull-right" [disabled]="!obs.form.valid" style="margin-left:0.5em;">ENVIAR</button>
+                                <button type="button" class="btn btn-sm btn-danger btn-fill pull-right" data-dismiss="modal">CANCELAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- !!!: MODAL PARA EL FORMULARIO DE APROBACION DE LA SOLCITUD DE INCORPORACION -->
+<div class="modal fade" id="modal-aprobar">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fa fa-check"></i> APROBACION DE LA SOLICITUD DE INCORPORACION</h4>
+                <button type="button" class="close" aria-label="Close" data-dismiss="modal" style="margin-top: -1.2em;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #ap="ngForm" (ngSubmit)="registrarAprobacion(ap)">
+                    <div class="card card-plain">
+                        <div class="content">
+                            <h5>RAZON SOCIAL: {{datosSolicitud.razon_social}}</h5>
+                            <h5>CODIGO DE SOLICITUD: {{datosSolicitud.codigo}}</h5>
+                            <!--<hr>
+                                Generar la Resolución Administrativa <button type="button" (click)="generarResolucionAdministrativa()" class="btn btn-sm btn-warning"> GENERAR LA RESOLUCION ADMINISTRATIVA</button>
+                                <p class="text-center"><b style="font-size: 15px;">{{ numeroResolucion }}</b></p>
+                            <hr>-->
+                            <h5>Registre la siguiente información</h5>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-4 form-group">
+                                    <label for="informe_tecnico">Adjunte el Informe Técnico</label>
+                                    <input type="file"
+                                            name="informe_tecnico"
+                                            id="informe_tecnico"
+                                            class="form-control"
+                                            ngModel
+                                            #informe_tecnico="ngModel">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="informe_fecha">Fecha del Informe</label>
+                                    <input type="date"
+                                            name="informe_fecha"
+                                            id="informe_fecha"
+                                            class="form-control"
+                                            required
+                                            ngModel
+                                            #informe_fecha="ngModel">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="informe_codigo">Código del Informe</label>
+                                    <input type="text"
+                                            name="informe_codigo"
+                                            id="informe_codigo"
+                                            class="form-control"
+                                            required
+                                            ngModel
+                                            #informe_codigo="ngModel">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 form-group">
+                                    <label for="resolucion">Adjunte la Resol. Admin.</label>
+                                    <input type="file"
+                                            name="resolucion"
+                                            id="resolucion"
+                                            class="form-control"
+                                            ngModel
+                                            #resolucion="ngModel">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="resolucion_fecha">Fecha de la Resolución</label>
+                                    <input type="date"
+                                            name="resolucion_fecha"
+                                            id="resolucion_fecha"
+                                            class="form-control"
+                                            required
+                                            ngModel
+                                            #resolucion_fecha="ngModel">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="resolucion_codigo">Número Resolución</label>
+                                    <input type="text"
+                                            name="resolucion_codigo"
+                                            id="resolucion_codigo"
+                                            class="form-control"
+                                            required
+                                            ngModel
+                                            #resolucion_codigo="ngModel">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-sm btn-danger btn-fill pull-right" style="margin-left:0.5em;" (click)="descargarResolucion()"><i class="fa fa-file-pdf-o"></i> DESCARGAR RESOLUCION</button>
+                                <button type="submit" class="btn btn-sm btn-warning btn-fill pull-right" [disabled]="!ap.form.valid" style="margin-left:0.5em;">CONFIRMAR</button>
+                                <button type="button" class="btn btn-sm btn-primary btn-fill pull-right" data-dismiss="modal">CANCELAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>

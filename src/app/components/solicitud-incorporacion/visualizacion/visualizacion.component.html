@@ -1,0 +1,94 @@
+<hr>
+<div class="col-md-12">
+    <p>Visualización de Solicitud de Incorporación y Envío de Solicitud</p>
+    <p><b><i>Revise su Información  através de la pre-visualización</i></b></p>
+    <p>
+        1. Presione el siguiente botón para previsualizar sin CODIGO
+        <button class="btn btn-sm btn-fill btn-primary" (click)="generatePdfPrevisualizacion()"><i class="fa fa-file-pdf-o"></i> PREVISUALIZAR DATOS</button>
+        <br><br>
+        2. Presione el siguiente botón para visualizar la Solicitud con CODIGO
+        <button class="btn btn-sm btn-fill btn-danger" (click)="generateCodigoSolicitud()" style="margin-left:1em;"><i class="fa fa-book"></i> GENERAR CODIGO DE SOLICTUD</button>
+    </p>
+    <code>Nota: Una vez generado el CODIGO DE SOLICITUD, debe de imprimir la Solicitud y firmar el fisico para el cargado del mismo en el punto 3</code>
+    <br><br>
+   
+    <br style="margin-top:1.5em; margin-bottom:2em;">
+</div>
+<div class="row">
+    <div class="col-md-6"><button type="button" (click)="abrirFormularioModalArchivo()" class="btn btn-sm btn-danger btn-fill"><i class="fa fa-file-pdf-o"></i> CARGAR ARCHIVO CON EL CODIGO GENERADO Y FIRMADO</button></div>
+    <div class="col-md-6"><button type="button" (click)="abrirFormularioModalObservacion()" class="btn btn-sm btn-warning btn-fill pull-right"><i class="fa fa-eye"></i> VER OBSERVACION</button></div>
+</div>
+<div class="col-md-12" style="margin-top:1.5em; margin-bottom:1.5em;">
+    <jqxGrid
+        [source]="dataAdapterSolicitud"
+        [height]="'450px'"
+        [width]="'100%'"
+        [pageable]="true"
+        [altrows]="true"
+        [sortable]="true"
+        [columns]="columns"
+        [localization]="localization"
+        (onRowclick)="seleccionFilaSolicitud($event);"
+        #gridArchivo>
+    </jqxGrid>
+</div>
+
+
+<!-- !!!: MODAL CARGAR ARCHIVO SOLICITUD CON CODIGO GENERADO -->
+<div class="modal fade" id="modalCargarArchivoSolicitud">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa fa-plus"></i> CARGAR ARCHIVO DE SOLICITUD PDF CON CODIGO GENERADO</h5>
+                <button type="button" class="close" aria-label="Close" data-dismiss="modal" style="margin-top: -1.2em;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #fse="ngForm">
+                    <p>Seleccione el archivo a cargar</p>
+                    <input
+                        class="form-control"
+                        type="file"
+                        name="solIncorporacionConsolidado"
+                        id="solIncorporacionConsolidado"
+                        ngModel
+                        required
+                        #solIncorporacionConsolidado="ngModel"
+                    ><br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" [disabled]="!fse.form.valid" (click)="registrarSolicitudIncorporacion(fse)" class="btn btn-sm btn-success btn-fill pull-right"><i class="fa fa-plus"></i>
+                                CARGAR ARCHIVO Y ENVIAR SOLICITUD</button>
+                            <button type="reset" class="btn btn-sm btn-danger btn-fill pull-right" style="margin-left: 1em;"><i
+                                    class="fa fa-refresh"></i> CANCELAR</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- !!!: MODAL PARA VISUALIZAR LAS OBSERVACIONES DE LA SOLICITUD ENVIADA -->
+<div class="modal fade" id="modalVerObservacion">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa fa-plus"></i> OBSERVACIONES DE LA SOLICITUD: <b>{{ codigo_solicitud }}</b></h5>
+                <button type="button" class="close" aria-label="Close" data-dismiss="modal" (click)="cerrarModalObservacion()" style="margin-top: -1.2em;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ observacion_solicitud }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-warning btn-fill" data-dismiss="modal" (click)="cerrarModalObservacion()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

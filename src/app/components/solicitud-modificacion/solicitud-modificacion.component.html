@@ -1,0 +1,76 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card ">
+                    <div class="container-fluid">
+                        <div class="text-center">
+                            <h5>SOLICITUD DE MODIFICACIÓN RITEX</h5>
+                        </div>
+                        <ul class="nav nav-tabs" style="margin: 1em !important;">
+                            <li class="active"><a data-toggle="tab" href="#paso1"><i class="fa fa-book"></i> Instalaciones y Depósitos</a></li>
+                            <li><a data-toggle="tab" href="#paso2"><i class="fa fa-bookmark"></i> Materia Prima e Insumoss</a></li>
+                            <li><a data-toggle="tab" href="#paso3"><i class="fa fa-signal"></i> Productos</a></li>
+                            <li><a data-toggle="tab" href="#paso4"><i class="fa fa-file-pdf-o"></i> Informe Pericial</a></li>
+                            <li><a data-toggle="tab" href="#paso5"><i class="fa fa-eye"></i> Pre visualización</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="paso1" class="tab-pane fade in active">
+                                <h3>Instalaciones y Depósitos</h3>
+                                <div class="col-md-12">
+                                    <p>
+                                        Registrar la dirección donde se encuentran ubicadas las instalaciones y depósitos donde permanecerán las
+                                        materias primas y bienes que se internen, así como los productos de exportación resultantes de la operación
+                                        de perfeccionamiento activo.
+                                    </p>
+                                </div>
+                                <hr>
+                                <app-instalacion></app-instalacion>
+                            </div>
+                            <div id="paso2" class="tab-pane fade">
+                                <h3>Materia Prima e Insumos</h3>
+                                <div class="col-md-12">
+                                    Registrar la dirección donde se encuentran
+                                    ubicadas las instalaciones y depósitos donde
+                                    permanecerán las materias primas y bienes que
+                                    se internen, así como los productos de exportación
+                                    resultantes de la operación de perfeccionamiento activo.
+                                </div>
+                                <hr>
+                                <app-insumo></app-insumo>
+                            </div>
+                            <div id="paso3" class="tab-pane fade">
+                                <h3>Productos</h3>
+                                <div class="col-md-12">
+                                    <p>
+                                        <i>Registrar los productos de exportación resultantes de la operación de perfeccionamiento activo de la empresa</i>
+                                    </p>
+                                </div>
+                                <hr>
+                                <app-producto></app-producto>
+                            </div>
+                            <div id="paso4" class="tab-pane fade">
+                                <h3> Informe Pericial</h3>
+                                <div class="col-md-12">
+                                    <p>
+                                    <i>Cargar el archivo PDF de Informe Pericial y sus Complementaciones</i>
+                                    </p>
+                                </div>
+                                <hr>
+                                <app-archivo></app-archivo>
+                            </div>
+                            <div id="paso5" class="tab-pane fade">
+                                <h3>Carga y Previsualización</h3>
+                                <div class="col-md-12">
+                                    Permite la visualización previa del Formulario de Solicitud <br>
+                                    <hr>
+                                </div>
+                                <app-ver-solicitud></app-ver-solicitud>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

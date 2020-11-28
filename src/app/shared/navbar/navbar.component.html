@@ -1,0 +1,59 @@
+
+<nav #navbar class="navbar navbar-default">
+    <div class="container-fluid">
+        <!--<div class="navbar-minimize">
+            <button id="minimizeSidebar" class="btn btn-info btn-fill btn-round btn-icon">
+                <i class="fa fa-ellipsis-v visible-on-sidebar-regular"></i>
+                <i class="fa fa-navicon visible-on-sidebar-mini"></i>
+            </button>
+        </div>-->
+        <div class="navbar-header">
+            <!--<button type="button" class="navbar-toggle" data-toggle="collapse" (click)="sidebarToggle()">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>-->
+            <!--<a class="navbar-brand">{{getTitle()}}</a>-->
+            <a class="navbar-brand">
+                <div>
+                    <p style="margin-top:-1em; font-size:10.5px;">Razon Social: <b>{{razon_social}}</b></p>
+                    <p style="margin-top:-1.2em; font-size:10.5px;">NIT : <b>{{numero_nit}}</b></p>
+                    <p style="margin-top:-1.2em; font-size:10.5px;">RUEX: <b>{{numero_ruex}}</b></p>
+                </div>
+
+            </a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <div class="" *ngIf="isMobileMenu()">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown dropdown-with-icons">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-user"></i> <span> {{ userFullName }}</span>
+                            <p class="hidden-md hidden-lg">
+                                more
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <ul class="dropdown-menu dropdown-with-icons">
+                            <li>
+                                <a style="margin-right: 3.5em;"><i class="pe-7s-user"></i> {{ userEmail }} </a>
+                            </li>
+                            <li>
+                                <a style="margin-right: 3.5em;" [routerLink]="['/cambiopassword']" routerLinkActive="router-link-active" ><i class="pe-7s-home"></i> Cambiar Contraseña </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#" class="text-danger" (click)="salir()">
+                                    <i class="pe-7s-close-circle"></i>
+                                    Salir
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

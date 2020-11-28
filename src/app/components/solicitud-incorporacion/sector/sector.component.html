@@ -1,0 +1,59 @@
+<hr>
+<div class="col-md-12">
+    <div class="row" *ngIf="estadoGuardado">
+        <div class="col-md-12 text-success">
+            <p class="pull-right"><i class="fa fa-save"></i> Estado Actual: Guardado</p>
+        </div>
+    </div>
+    <div class="row" *ngIf="!estadoGuardado">
+        <div class="col-md-12 text-danger">
+            <p class="pull-right"><i class="fa fa-save"></i> Estado Actual: Sin Guardar</p>
+        </div>
+    </div>
+    <form #f="ngForm" (ngSubmit)="registrarSector(f)" name="frmsector" id="frmsector">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="">Pertenece al Sector Minero</label>
+            </div>
+            <div class="col-md-1">
+                <div class="form-check pull-left">
+                    <input class="form-check-input" type="radio" name="sector_ritex" id="sector_ritex" value="S" ngModel #sector_ritex="ngModel">
+                    <label class="form-check-label" for="sector_ritex" style="margin-left: 1em;">Si</label>
+                    </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-check pull-left">
+                    <input class="form-check-input" type="radio" style="margin-left: 2em;" name="sector_ritex" id="sector_ritex" value="N" ngModel #sector_ritex="ngModel">
+                    <label class="form-check-label" for="sector_ritex" style="margin-left: 1em;">No</label>
+                    </div>
+            </div>
+            <div class="col-md-5"></div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">
+                <label for="">Seleccione la siguiente opción</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-check pull-left">
+                    <input class="form-check-input" type="radio" name="tipo_ritex" id="tipo_ritex" value="E" ngModel #tipo_ritex="ngModel">
+                    <label class="form-check-label" for="sector_ritex" style="margin-left: 1em;">Empresa RITEX</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-check pull left">
+                    <input class="form-check-input" type="radio" style="margin-left: 2em;" name="tipo_ritex" id="tipo_ritex" value="ER" ngModel #tipo_ritex="ngModel">
+                    <label class="form-check-label" for="sector_ritex" style="margin-left: 1em;">Empresa de Reparación RITEX</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <button type="submit" class="btn btn-success btn-fill" style="margin-top: 1.8em;"><i class="fa fa-plus"></i> GUARDAR</button>
+            </div>
+        </div>
+    </form>
+    <br style="margin-top:1.5em; margin-bottom:2em;">
+</div>
+
+

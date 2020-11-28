@@ -1,0 +1,84 @@
+
+<div class="logo">
+	<a href="/" class="simple-text logo-mini">
+		<div class="col-md-4 logo-img">
+            <img src="../../assets/img/logo_ritex.png"/>
+
+        </div>
+	</a>
+	<a href="javascript:;" class="simple-text logo-normal">
+        <!--RITEX-->
+    </a>
+
+    <!--<div class="col-md-4 logo-img">
+        <img src="../../assets/img/logo_vice.png"/>
+    </div>-->
+</div>
+
+<div class="sidebar-wrapper">
+
+	<div class="user">
+		<div class="info">
+			<!--<div class="photo">
+				<img src="../assets/img/default-avatar.png" />
+			</div>
+			<a data-toggle="collapse" href="#collapseExample" class="collapsed">
+				<span>
+					{{ userUsername }}
+					<b class="caret"></b>
+				</span>
+			</a>-->
+			<!--<div class="collapse" id="collapseExample">
+				<ul class="nav">
+					<li>
+						<a href="#">
+							<span class="sidebar-mini">MP</span>
+							<span class="sidebar-normal">Mis Datos</span>
+						</a>
+					</li>
+				</ul>
+			</div>-->
+		</div>
+	</div>
+	<div *ngIf="isNotMobileMenu()">
+		<ul class="nav nav-mobile-menu">
+            <li class="dropdown dropdown-with-icons">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                    <i class="fa fa-list"></i>
+                    <p class="hidden-md hidden-lg">
+                        More
+                        <b class="caret"></b>
+                    </p>
+                </a>
+
+            </li>
+        </ul>
+    </div>
+    <ul class="nav">
+        <li routerLinkActive="active" *ngFor="let menuitem of menuItems">
+            <a [routerLink]="[menuitem.path]" *ngIf="menuitem.type === 'link'">
+                <i class="{{menuitem.icontype}}"></i>
+                <p>{{menuitem.title}}</p>
+            </a>
+            <a data-toggle="collapse" href="#{{ menuitem.title }}" *ngIf="menuitem.type === 'sub'">
+                <i class="{{menuitem.icontype}}"></i>
+                <p>{{menuitem.title}}<b class="caret"></b></p>
+            </a>
+            <div id="{{ menuitem.title }}" class="collapse" *ngIf="menuitem.type === 'sub'">
+                <ul class="nav">
+                    <li *ngFor="let childitem of menuitem.children">
+                        <a [routerLink]="[menuitem.path, childitem.path]">
+                            <span class="sidebar-mini">{{childitem.ab}}</span>
+                            <span class="sidebar-normal">{{childitem.title}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+
+    <div class="help-contact text-center">
+        En caso de consultas o problemas con su solicitud comunicarse con el Viceministerio de Comercio Interno al teléfono <code><b>2-372054</b></code> o al correo electrónico <code><b>bolivia.ritex@gmail.com</b></code>
+    </div>
+
+</div>

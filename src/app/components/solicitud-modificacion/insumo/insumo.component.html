@@ -1,0 +1,72 @@
+<hr>
+<div class="col-md-12">
+    <div class="bg-content">
+    <form #f2="ngForm" (ngSubmit)="registrarModificacionInsumo(f2)" name="frmInsumo" id="frmInsumo">
+        <div class="row">
+            <div class="col-md-3">
+                <label for="codigo_p2">Código</label>
+                <input type="text"
+                        name="codigo_p2"
+                        id="codigo_p2"
+                        class="form-control"
+                        ngModel
+                        #codigo_p2="ngModel">
+            </div>
+            <div class="col-md-4">
+                <label for="partida_arancelaria_p2">Partida Arancelaria</label>
+                <section class="filter-wrapper">
+                    <div class="keyword-wrapper">
+                        <input [formControl]="queryField" type="text" id="keyword" placeholder="0000.00.00.000" autofocus class="form-control"/>
+                    </div>
+                   <!-- <ul class="filter-select"> -->
+                    <ul >
+                        <li *ngFor="let result of results" class="filter-select-list">
+                            <p class="artist-name">{{result.partida_arancelaria}}</p>
+                        
+                   </ul>
+                </section>
+            </div>
+            <div class="col-md-3">
+                <label for="unidad_medida_p2">Unidad de Medida</label>
+                <select name="unidad_medida_p2"
+                        id="unidad_medida_p2"
+                        class="form-control"
+                        ngModel
+                        #unidad_medida_p2="ngModel">
+                    <option *ngFor="let item of unidadMedida_paso2" value="{{item.id}}">{{item.unidad_de_medida}} - {{item.descripcion}}</option>
+                </select>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-md-8">
+                <label for="descripcion_p2">Descripcion</label>
+                <input type="text"
+                        name="descripcion_p2"
+                        id="descripcion_p2"
+                        class="form-control"
+                        ngModel
+                        #descripcion_p2="ngModel">
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-success btn-fill" style="margin-top: 1.8em;"><i class="fa fa-plus"></i> AGREGAR</button>
+                <button type="button" class="btn btn-danger btn-fill" style="margin-top: 1.8em; margin-left: 0.5em;" (click)="eliminarInsumo()"><i class="fa fa-trash"></i> ELIMINAR</button>
+            </div>
+        </div>
+    </form>
+    </div>
+</div>
+<div class="col-md-12" style="margin-top:1.5em; margin-bottom:1.5em;">
+    <jqxGrid
+        [source]="dataAdapterInsumo"
+        [height]="'450px'"
+        [width]="'100%'"
+        [pageable]="true"
+        [altrows]="true"
+        [sortable]="true"
+        [columns]="columns"
+        [localization]="localization"
+        (onRowclick)="seleccionInsumoEliminar($event);"
+        #gridinsumo>
+    </jqxGrid>
+</div>
+<br style="margin-top:1.5em; margin-bottom:1.5em;">

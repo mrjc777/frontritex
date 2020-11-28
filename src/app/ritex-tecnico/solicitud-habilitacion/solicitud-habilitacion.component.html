@@ -1,0 +1,191 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card ">
+                    <div class="header">
+                        <h4 class="title">Empresas</h4>
+                        <p class="category">Todas las empresas registradas para habilitación</p>
+                    </div>
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-md-12" style="margin-bottom: 0.5em;">
+                                <button (click)="habilitarUsuarioEmpresa()" class="btn btn-sm btn-success btn-fill pull-right" style="margin-left: 0.5em;"><i class="fa fa-lock"></i><b> HABILITAR</b></button>
+                                <button (click)="verDetalleDeLaEmpresa()" class="btn btn-sm btn-warning btn-fill pull-right"><i class="fa fa-eye"></i><b> DETALLE</b></button>
+                            </div>
+                            <div class="col-md-12">
+                                <jqxGrid
+                                    [source]="dataAdapter"
+                                    [height]="'450px'"
+                                    [width]="'100%'"
+                                    [pageable]="true"
+                                    [altrows]="true"
+                                    [sortable]="true"
+                                    [columns]="columns"
+                                    [localization]="localization"
+                                    (onRowclick)="detalleEmpresaGrid($event);"
+                                    #gridhabilitacion>
+                                </jqxGrid>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- !!!: MODAL DETALLE DE DATOS DE LA EMPRESA -->
+<div class="modal fade" id="modalDetalleEmpresa">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fa fa-home"></i> DETALLE DE LA EMPRESA</h4>
+                <button type="button" class="close" aria-label="Close" data-dismiss="modal" style="margin-top: -1.2em;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover" width="100%">
+                    <tr>
+                        <td valign="top" width="30%">Nombre de la Empresa</td>
+                        <td valign="top" width="5%">:</td>
+                        <td valign="top" width="65%"><b>{{datosEmpresa.razon_social}}</b></td>
+                    </tr>
+                    <tr>
+                        <td valign="top">Dirección</td>
+                        <td valign="top">:</td>
+                        <td valign="top"><b>{{datosEmpresa.departamento}}</b>, {{datosEmpresa.ciudad}} - {{datosEmpresa.direccion}}</td>
+                    </tr>
+                    <tr>
+                        <td valign="top">Correo Electŕonico</td>
+                        <td valign="top">:</td>
+                        <td valign="top"><i class="fa fa-envelope"></i> <b>{{datosEmpresa.correo_electronico}}</b></td>
+                    </tr>
+                    <tr>
+                        <td valign="top">Nro. Telefónico</td>
+                        <td valign="top">:</td>
+                        <td valign="top"><i class="fa fa-phone-square"></i> <b>{{datosEmpresa.telefono}}</b></td>
+                    </tr>
+                    <!--<tr>
+                        <td valign="top">Actividad</td>
+                        <td valign="top">:</td>
+                        <td valign="top">{{datosEmpresa.actividad}}</td>
+                    </tr>-->
+                    <tr>
+                        <td valign="top">Representante Legal</td>
+                        <td valign="top">:</td>
+                        <td valign="top"><i class="fa fa-user"></i> <b>{{datosEmpresa.representante_legal}}</b>, CI: {{datosEmpresa.carnet_identidad}} - {{datosEmpresa.expedido}}</td>
+                    </tr>
+                    <tr>
+                        <td valign="top">Nro. de RUEX</td>
+                        <td valign="top">:</td>
+                        <td valign="top"><b class="btn btn-sm btn-danger"><i class="fa fa-hashtag"></i> {{datosEmpresa.numero_ruex}}</b></td>
+                    </tr>
+                    <tr>
+                        <td valign="top">Nro. de Matrícula</td>
+                        <td valign="top">:</td>
+                        <td valign="top"><b class="btn btn-sm btn-warning"><i class="fa fa-hashtag"></i> {{datosEmpresa.numero_matricula}}</b></td>
+                    </tr>
+                    <tr>
+                        <td valign="top">Nro. de NIT</td>
+                        <td valign="top">:</td>
+                        <td valign="top"><b class="btn btn-sm btn-success"><i class="fa fa-hashtag"></i> {{datosEmpresa.numero_nit}}</b></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-defafult btn-fill" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- !!!: MODAL PARA FORMULARIO DE NUEVA CUENTA DE USUARIO -->
+<div class="modal fade" id="modalHabilitacionEmpresa">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fa fa-user"></i> HABILITACIÓN DE USUARIO</h4>
+                <button type="button" class="close" aria-label="Close" data-dismiss="modal" style="margin-top: -1.2em;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #habilitacion="ngForm" (ngSubmit)="habilitarEmpresa(habilitacion)">
+                    <div class="card card-plain">
+                        <div class="content">
+                            <h5>{{datosEmpresa.razon_social}}</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <b><i class="fa fa-envelope"></i> {{datosEmpresa.correo_electronico}}</b>
+                                </div>
+                                <div class="col-md-6">
+                                    <b class=" pull-right"><i class="fa fa-phone"></i> {{datosEmpresa.telefono}}</b>
+                                </div>
+                            </div>
+                            <div class="form-group" [ngClass]="{'has-error': username.invalid && username.touched}">
+                                <span>Cuenta de Usuario</span>
+                                <input type="text"
+                                    placeholder="cuenta de usuario"
+                                    class="form-control"
+                                    name="username"
+                                    required
+                                    minlength="5"
+                                    maxlength="50"
+                                    ngModel
+                                    #username="ngModel">
+                                <div *ngIf="username.dirty && username.invalid" >
+                                    <div *ngIf="username?.errors.required">
+                                        <small class="form-text text-danger">Este campo es requerido.</small>
+                                    </div>
+                                    <div *ngIf="username?.errors.minlength">
+                                        <small class="form-text text-danger">Debe contar como mínimo 5 caracteres de longitud.</small>
+                                    </div>
+                                    <div *ngIf="username?.errors.maxlength">
+                                        <small class="form-text text-danger">Debe contar como máximo 50 caracteres de longitud.</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" [ngClass]="{'has-error':  password.invalid && password.touched}">
+                                <span>Contraseña Generada</span>
+                                    <input type="text"
+                                        placeholder="contraseña generada"
+                                        class="form-control"
+                                        name="password"
+                                        id="password"
+                                        required
+                                        minlength="4"
+                                        maxlength="10"
+                                        (ngModel)="password"
+                                        #password="ngModel">
+                                    </div>
+                                    <div *ngIf="password.invalid && password.dirty" >
+                                        <div *ngIf="password?.errors.required">
+                                            <small class="form-text text-danger">Este campo es requerido.</small>
+                                        </div>
+                                        <div *ngIf="password?.errors.minlength">
+                                            <small class="form-text text-danger">Debe contar como mínimo 4 caracteres de longitud.</small>
+                                        </div>
+                                        <div *ngIf="password?.errors.maxlength">
+                                            <small class="form-text text-danger">Debe contar como máximo 10 caracteres de longitud.</small>
+                                        </div>
+                                    </div>
+                                    <!--<span class="input-group-addon btn btn-success" id="generar" (click)="generarContrasena()" title="Generar Contraseña"><i class="fa fa-lock"></i> GENERAR</span>-->
+
+
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-sm btn-warning btn-fill pull-right" [disabled]="!habilitacion.valid" style="margin-left:0.5em;">HABILITAR</button>
+                                <button type="button" class="btn btn-sm btn-danger btn-fill pull-right" data-dismiss="modal">CANCELAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <hr/>
+                <code>Nota. Una vez generado el usuario y contraseña, se remitira al correo electrónico registrado</code>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
